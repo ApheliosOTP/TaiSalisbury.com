@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portfolio — [Your Name]</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --black:    #0C0C0C;
+  --deep:     #111214;
+  --surface:  #181A1D;
+  --raised:   #1F2226;
+  --border:   #2A2D32;
+  --muted:    #4A5058;
+  --stone:    #8A919C;
+  --silver:   #C2C8D0;
+  --white:    #EEF0F3;
+  --gold:     #C9A84C;
+  --gold-dim: #7A6228;
+  --gold-glow:rgba(201,168,76,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body::before {
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.35;
+}
+body {
+  background:var(--black);color:var(--white);
+  font-family:'Barlow',sans-serif;font-weight:300;font-size:16px;line-height:1.75;
+  overflow-x:hidden;
+}
+.cursor {
+  position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;
+  pointer-events:none;z-index:10000;transform:translate(-50%,-50%);
+  transition:width .2s,height .2s;mix-blend-mode:screen;
+}
+.cursor-ring {
+  position:fixed;width:36px;height:36px;border:1px solid rgba(201,168,76,.4);
+  border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+  transition:all .12s ease;
+}
+nav {
+  position:fixed;top:0;left:0;right:0;z-index:500;height:68px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 60px;
+  background:rgba(11,11,12,.9);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-wordmark {
+  font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.1rem;
+  letter-spacing:.25em;text-transform:uppercase;color:var(--gold);
+}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a {
+  font-family:'Barlow Condensed',sans-serif;font-size:.72rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--stone);
+  text-decoration:none;transition:color .25s;position:relative;
+}
+.nav-links a::after {
+  content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;
+  background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s;
+}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a:hover::after{transform:scaleX(1);}
+
+/* HERO */
+#hero {
+  min-height:100vh;display:grid;grid-template-columns:1fr 420px;
+  padding-top:68px;position:relative;overflow:hidden;
+}
+.hero-bg-lines {
+  position:absolute;inset:0;
+  background-image:linear-gradient(to right,var(--border) 1px,transparent 1px),linear-gradient(to bottom,var(--border) 1px,transparent 1px);
+  background-size:80px 80px;opacity:.22;
+}
+.hero-bg-glow {
+  position:absolute;top:10%;left:-10%;width:700px;height:700px;
+  background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);pointer-events:none;
+}
+.hero-left {
+  position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;
+  padding:100px 80px;
+}
+.hero-eyebrow {
+  font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:28px;
+  display:flex;align-items:center;gap:16px;
+}
+.hero-eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--gold);}
+.hero-name {
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(3.8rem,7vw,7.5rem);line-height:.92;color:var(--white);
+  margin-bottom:28px;letter-spacing:-.01em;
+}
+.hero-name em{font-style:italic;font-weight:300;color:var(--gold);}
+.hero-subtitle {
+  font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--stone);margin-bottom:40px;
+}
+.hero-bio {
+  max-width:520px;font-size:1rem;color:var(--silver);line-height:1.85;margin-bottom:56px;
+  border-left:2px solid var(--gold-dim);padding-left:24px;
+}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-gold {
+  font-family:'Barlow Condensed',sans-serif;font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;background:var(--gold);color:var(--black);padding:14px 36px;
+  text-decoration:none;border:none;cursor:pointer;display:inline-block;font-weight:600;
+  transition:background .2s,transform .15s;
+}
+.btn-gold:hover{background:#B8952A;transform:translateY(-2px);}
+.btn-ghost {
+  font-family:'Barlow Condensed',sans-serif;font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;background:transparent;color:var(--silver);padding:13px 32px;
+  border:1px solid var(--border);text-decoration:none;cursor:pointer;display:inline-block;
+  transition:border-color .2s,color .2s;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+.hero-stats {
+  position:absolute;bottom:60px;left:80px;display:flex;gap:48px;z-index:2;
+}
+.stat{display:flex;flex-direction:column;gap:4px;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1;}
+.stat-label{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.hero-right {
+  position:relative;z-index:2;background:var(--surface);border-left:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px 48px;overflow:hidden;
+}
+.hero-right::after {
+  content:'';position:absolute;bottom:0;left:0;right:0;height:200px;
+  background:linear-gradient(to top,var(--black),transparent);
+}
+.photo-frame{position:relative;width:280px;height:360px;}
+.photo-inner {
+  width:100%;height:100%;background:var(--raised);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;z-index:1;
+}
+.photo-inner img{width:100%;height:100%;object-fit:cover;}
+.photo-placeholder{display:flex;flex-direction:column;align-items:center;gap:16px;color:var(--muted);text-align:center;padding:32px;}
+.photo-corner{position:absolute;width:24px;height:24px;border-color:var(--gold);border-style:solid;}
+.photo-corner.tl{top:-8px;left:-8px;border-width:2px 0 0 2px;}
+.photo-corner.tr{top:-8px;right:-8px;border-width:2px 2px 0 0;}
+.photo-corner.bl{bottom:-8px;left:-8px;border-width:0 0 2px 2px;}
+.photo-corner.br{bottom:-8px;right:-8px;border-width:0 2px 2px 0;}
+.hero-field-tag {
+  margin-top:32px;font-family:'Barlow Condensed',sans-serif;
+  font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold-dim);z-index:2;position:relative;text-align:center;
+}
+.field-pills{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px;z-index:2;position:relative;}
+.field-pill{border:1px solid var(--border);padding:5px 14px;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;color:var(--stone);}
+
+/* SECTIONS */
+section{padding:110px 80px;position:relative;}
+section+section{border-top:1px solid var(--border);}
+.sec-label {
+  font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:16px;
+  display:flex;align-items:center;gap:14px;
+}
+.sec-label::before{content:'';display:block;width:32px;height:1px;background:var(--gold);}
+.sec-title {
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:clamp(2.4rem,4vw,3.8rem);line-height:1.05;color:var(--white);margin-bottom:56px;
+}
+.sec-title em{font-style:italic;font-weight:300;color:var(--gold);}
+
+/* MISSION */
+#mission{background:var(--deep);}
+.mission-layout{display:grid;grid-template-columns:1fr 360px;gap:80px;align-items:start;}
+.mission-body p{color:var(--silver);font-size:1.02rem;line-height:1.9;margin-bottom:24px;}
+.mission-pull {
+  font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-style:italic;font-weight:300;
+  color:var(--white);line-height:1.45;border-left:2px solid var(--gold);padding-left:28px;margin:40px 0;
+}
+.values-sidebar{display:flex;flex-direction:column;gap:4px;}
+.value-item {
+  padding:20px 24px;border:1px solid var(--border);background:var(--raised);
+  transition:border-color .25s,background .25s;
+}
+.value-item:hover{border-color:var(--gold);background:var(--surface);}
+.value-num{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;letter-spacing:.2em;color:var(--gold-dim);margin-bottom:6px;}
+.value-name{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--white);margin-bottom:6px;}
+.value-desc{font-size:.82rem;color:var(--stone);line-height:1.6;}
+
+/* RESUME */
+#resume{background:var(--black);}
+.resume-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;}
+.resume-col-title {
+  font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:32px;padding-bottom:12px;border-bottom:1px solid var(--border);
+}
+.resume-entry{margin-bottom:36px;padding-bottom:36px;border-bottom:1px solid var(--border);}
+.resume-entry:last-child{border-bottom:none;}
+.re-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:4px;}
+.re-title{font-weight:500;font-size:.98rem;color:var(--white);}
+.re-date{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:.15em;color:var(--gold);white-space:nowrap;margin-top:3px;}
+.re-org{font-size:.85rem;color:var(--stone);font-style:italic;margin-bottom:10px;}
+.re-desc{font-size:.88rem;color:var(--silver);line-height:1.75;}
+.skills-cloud{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.sk-tag {
+  font-family:'Barlow Condensed',sans-serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 14px;border:1px solid var(--border);color:var(--stone);transition:border-color .2s,color .2s;cursor:default;
+}
+.sk-tag:hover{border-color:var(--gold);color:var(--gold);}
+.sk-tag.lit{border-color:var(--gold-dim);color:var(--silver);}
+.resume-cta {
+  margin-top:48px;display:flex;align-items:center;justify-content:space-between;
+  padding:32px 40px;border:1px solid var(--border);background:var(--raised);gap:24px;flex-wrap:wrap;
+}
+.resume-cta h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;margin-bottom:6px;color:var(--white);}
+.resume-cta p{font-size:.85rem;color:var(--stone);}
+
+/* CAPSTONE */
+#capstone{background:var(--deep);}
+.capstone-wrap{border:1px solid var(--border);background:var(--raised);overflow:hidden;max-width:960px;}
+.cap-top {
+  background:var(--surface);padding:48px 56px;border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.cap-top::before {
+  content:'';position:absolute;top:0;left:0;width:4px;height:100%;
+  background:linear-gradient(to bottom,var(--gold),var(--gold-dim));
+}
+.cap-top h3{font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-weight:600;color:var(--white);margin-bottom:12px;line-height:1.25;}
+.cap-top p{color:var(--stone);font-size:.9rem;}
+.cap-body{padding:48px 56px;}
+.cap-meta{display:flex;flex-wrap:wrap;gap:32px;margin-bottom:36px;}
+.cap-meta-item{display:flex;flex-direction:column;gap:5px;}
+.cap-meta-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim);}
+.cap-meta-val{font-size:.9rem;font-weight:500;color:var(--silver);}
+.cap-body p{font-size:.93rem;color:var(--silver);line-height:1.85;margin-bottom:20px;}
+.doc-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px;}
+.doc-btn {
+  font-family:'Barlow Condensed',sans-serif;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;
+  padding:9px 18px;border:1px solid var(--border);color:var(--stone);
+  text-decoration:none;transition:border-color .2s,color .2s,background .2s;
+  display:flex;align-items:center;gap:8px;
+}
+.doc-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-glow);}
+
+/* SKILLS */
+#skills{background:var(--black);}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.sk-card {
+  background:var(--surface);padding:40px 36px;border:1px solid var(--border);
+  position:relative;overflow:hidden;transition:background .3s;
+}
+.sk-card::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold-dim);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.sk-card:hover::before{transform:scaleX(1);}
+.sk-card:hover{background:var(--raised);}
+.sk-card-num {
+  font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:700;
+  color:var(--border);line-height:1;position:absolute;top:20px;right:20px;user-select:none;
+}
+.sk-card-icon{font-size:1.6rem;margin-bottom:20px;}
+.sk-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--white);margin-bottom:14px;}
+.sk-card p{font-size:.85rem;color:var(--stone);line-height:1.7;}
+
+/* COURSEWORK */
+#coursework{background:var(--deep);}
+.cw-list{max-width:880px;display:flex;flex-direction:column;gap:2px;}
+.cw-item{display:grid;grid-template-columns:80px 1fr;background:var(--surface);border:1px solid var(--border);overflow:hidden;transition:border-color .25s;}
+.cw-item:hover{border-color:var(--gold);}
+.cw-num-col{background:var(--raised);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border);}
+.cw-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:var(--gold-dim);}
+.cw-content{padding:36px 40px;}
+.cw-type{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.cw-content h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--white);margin-bottom:12px;}
+.cw-content p{font-size:.88rem;color:var(--stone);line-height:1.75;}
+
+/* LINKS */
+#links{background:var(--black);}
+.links-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.link-card {
+  background:var(--surface);border:1px solid var(--border);padding:36px 28px;text-align:center;
+  text-decoration:none;color:var(--white);display:flex;flex-direction:column;align-items:center;gap:16px;
+  transition:background .25s,border-color .25s;
+}
+.link-card:hover{background:var(--raised);border-color:var(--gold);}
+.link-icon{width:56px;height:56px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.4rem;transition:border-color .25s;}
+.link-card:hover .link-icon{border-color:var(--gold);}
+.link-card h3{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;}
+.link-card p{font-size:.78rem;color:var(--stone);}
+
+/* ADDITIONAL */
+#additional{background:var(--deep);}
+.add-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+.add-col h3{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.cert-row{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--border);font-size:.9rem;color:var(--silver);}
+.cert-marker{width:6px;height:6px;background:var(--gold);flex-shrink:0;}
+.award-row{display:flex;gap:20px;align-items:flex-start;padding:16px 20px;border:1px solid var(--border);background:var(--raised);margin-bottom:6px;transition:border-color .25s;}
+.award-row:hover{border-color:var(--gold-dim);}
+.award-yr{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:.15em;color:var(--gold);white-space:nowrap;margin-top:2px;}
+.award-row strong{display:block;font-size:.9rem;color:var(--white);margin-bottom:3px;}
+.award-row span{font-size:.8rem;color:var(--stone);}
+
+/* FOOTER */
+footer {
+  background:var(--surface);border-top:1px solid var(--border);padding:64px 80px;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:40px;
+}
+.foot-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--white);}
+.foot-sub{font-size:.8rem;color:var(--muted);margin-top:4px;letter-spacing:.05em;}
+.foot-emblem{text-align:center;font-family:'Cormorant Garamond',serif;font-size:3rem;color:var(--gold-dim);opacity:.4;}
+.foot-links{display:flex;justify-content:flex-end;flex-direction:column;align-items:flex-end;gap:10px;}
+.foot-links a{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+.foot-links a:hover{color:var(--gold);}
+
+/* FADE */
+.fade-up{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  nav{padding:0 28px;} .nav-links{gap:20px;}
+  #hero{grid-template-columns:1fr;} .hero-left{padding:80px 40px 140px;} .hero-right{display:none;}
+  section{padding:80px 40px;}
+  .mission-layout{grid-template-columns:1fr;} .resume-grid{grid-template-columns:1fr;}
+  .skills-grid{grid-template-columns:1fr 1fr;} .links-grid{grid-template-columns:1fr 1fr;}
+  .add-grid{grid-template-columns:1fr;}
+  footer{grid-template-columns:1fr;text-align:center;padding:48px 40px;}
+  .foot-links{align-items:center;flex-direction:row;justify-content:center;flex-wrap:wrap;gap:20px;}
+  .foot-emblem{display:none;}
+}
+@media(max-width:640px){
+  .hero-name{font-size:3.2rem;} .skills-grid{grid-template-columns:1fr;}
+  .links-grid{grid-template-columns:1fr 1fr;} .nav-links{display:none;}
+  .cw-item{grid-template-columns:1fr;} .cw-num-col{height:56px;border-right:none;border-bottom:1px solid var(--border);}
+  .hero-stats{left:40px;gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-wordmark">[Your Name]</div>
+  <ul class="nav-links">
+    <li><a href="#profile">Profile</a></li>
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#resume">Résumé</a></li>
+    <li><a href="#capstone">Capstone</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#coursework">Coursework</a></li>
+    <li><a href="#links">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO / PROFILE -->
+<section id="profile" style="padding:0;border:none;">
+<div id="hero">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-bg-glow"></div>
+  <div class="hero-left">
+    <p class="hero-eyebrow">Exercise Science &amp; Psychology</p>
+    <h1 class="hero-name">[Your<br><em>Name]</em></h1>
+    <p class="hero-subtitle">B.S. Exercise Science &amp; Psychology &nbsp;&middot;&nbsp; Class of 20XX</p>
+    <p class="hero-bio">
+      A student of the body and the mind &mdash; driven by an unyielding curiosity and a commitment to becoming the sharpest version of myself. I believe that performance, character, and knowledge are built the same way: one deliberate rep at a time. I seek to bridge science and the human experience in everything I do.
+    </p>
+    <div class="hero-ctas">
+      <a href="#resume" class="btn-gold">View R&eacute;sum&eacute;</a>
+      <a href="#capstone" class="btn-ghost">Capstone Research</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">X</span><span class="stat-label">Research Projects</span></div>
+      <div class="stat"><span class="stat-num">X+</span><span class="stat-label">Clients Trained</span></div>
+      <div class="stat"><span class="stat-num">3.X</span><span class="stat-label">GPA</span></div>
+      <div class="stat"><span class="stat-num">X</span><span class="stat-label">Certifications</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="photo-frame">
+      <div class="photo-inner">
+        <!-- Replace with: <img src="your-headshot.jpg" alt="[Your Name]"/> -->
+        <div class="photo-placeholder">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+            <circle cx="36" cy="26" r="16" stroke="#4A5058" stroke-width="2"/>
+            <path d="M6 66c0-16.569 13.431-30 30-30s30 13.431 30 30" stroke="#4A5058" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span style="font-size:.75rem;color:#4A5058;letter-spacing:.1em;text-transform:uppercase;">Your Photo Here</span>
+        </div>
+      </div>
+      <div class="photo-corner tl"></div>
+      <div class="photo-corner tr"></div>
+      <div class="photo-corner bl"></div>
+      <div class="photo-corner br"></div>
+    </div>
+    <div class="hero-field-tag">Dual Discipline</div>
+    <div class="field-pills">
+      <div class="field-pill">Exercise Science</div>
+      <div class="field-pill">Psychology</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="fade-up">
+    <p class="sec-label">02 &mdash; Values</p>
+    <h2 class="sec-title">Mission &amp;<br><em>Values Statement</em></h2>
+  </div>
+  <div class="mission-layout fade-up">
+    <div class="mission-body">
+      <p>
+        My work is grounded in a demanding belief: that excellence is not a destination, but a discipline. I am drawn to the intersection of exercise science and psychology because I know that peak human performance is never purely physical &mdash; it is a product of the mind, the character, and the choices we make when no one is watching. That conviction drives everything I do.
+      </p>
+      <div class="mission-pull">
+        &ldquo;Iron sharpens iron. I am committed to becoming the best version of myself &mdash; and helping others discover what they are truly capable of.&rdquo;
+      </div>
+      <p>
+        What motivates me most is the responsibility that comes with understanding how people function at their limits. Whether in research, coaching, or clinical practice, I apply rigorous science with genuine empathy &mdash; meeting people where they are, and guiding them toward who they could become. I hold myself to a high standard because others deserve someone who does. Through my career, I intend to build systems and programs that give individuals &mdash; especially those underserved by conventional models &mdash; the tools to thrive in body and mind.
+      </p>
+    </div>
+    <div class="values-sidebar">
+      <div class="value-item">
+        <div class="value-num">01</div>
+        <div class="value-name">Adaptability</div>
+        <div class="value-desc">Every client, every dataset, every challenge is different. Rigid thinking fails. Flexible, curious minds prevail.</div>
+      </div>
+      <div class="value-item">
+        <div class="value-num">02</div>
+        <div class="value-name">Grit</div>
+        <div class="value-desc">The capacity to stay the course when results are slow, feedback is hard, and the work goes unseen.</div>
+      </div>
+      <div class="value-item">
+        <div class="value-num">03</div>
+        <div class="value-name">Integrity</div>
+        <div class="value-desc">Evidence over assumption. Honesty over comfort. Doing what is right because it matters, not because it is easy.</div>
+      </div>
+      <div class="value-item">
+        <div class="value-num">04</div>
+        <div class="value-name">Pursuit of Knowledge</div>
+        <div class="value-desc">Curiosity is not a soft skill. It is the engine of every breakthrough I intend to be part of.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="fade-up">
+    <p class="sec-label">03 &mdash; Background</p>
+    <h2 class="sec-title">R&eacute;sum&eacute;</h2>
+  </div>
+  <div class="resume-grid fade-up">
+    <div>
+      <p class="resume-col-title">Education</p>
+      <div class="resume-entry">
+        <div class="re-header"><span class="re-title">B.S. Exercise Science &amp; Psychology (Dual)</span><span class="re-date">20XX&ndash;20XX</span></div>
+        <p class="re-org">[University Name] &mdash; [College Name]</p>
+        <p class="re-desc">GPA: 3.X &nbsp;&middot;&nbsp; Dean&rsquo;s List &nbsp;&middot;&nbsp; Focus: Sport &amp; Performance Psychology</p>
+      </div>
+      <div class="resume-entry">
+        <div class="re-header"><span class="re-title">[Certificate or Minor]</span><span class="re-date">20XX</span></div>
+        <p class="re-org">[Issuing Institution]</p>
+        <p class="re-desc">Brief description of what this credential represents and what you gained from it.</p>
+      </div>
+
+      <p class="resume-col-title" style="margin-top:40px;">Certifications</p>
+      <div class="resume-entry">
+        <div class="re-header"><span class="re-title">CSCS &mdash; Certified Strength &amp; Conditioning Specialist</span><span class="re-date">20XX</span></div>
+        <p class="re-org">NSCA</p>
+      </div>
+      <div class="resume-entry">
+        <div class="re-header"><span class="re-title">CPR / AED Certified</span><span class="re-date">20XX</span></div>
+        <p class="re-org">American Red Cross</p>
+      </div>
+      <div class="resume-entry">
+        <div class="re-header"><span class="re-title">[Additional Certification]</span><span class="re-date">In Progress</span></div>
+        <p class="re-org">[Issuing Body]</p>
+      </div>
+
+      <p class="resume-col-title" style="margin-top:40px;">Technical &amp; Psychological Skills</p>
+      <div class="skills-cloud">
+        <span class="sk-tag lit">VO&sub2;max Testing</span>
+        <span class="sk-tag lit">Force Plate Analysis</span>
+        <span class="sk-tag lit">Psychometric Assessment</span>
+        <span class="sk-tag lit">Motivational Interviewing</span>
+        <span class="sk-tag lit">SPSS / R</span>
+        <span class="sk-tag lit">Program Design</span>
+        <span class="sk-tag">Behavior Change Theory</span>
+        <span class="sk-tag">DEXA Interpretation</span>
+        <span class="sk-tag">Research Methods</span>
+        <span class="sk-tag">Leadership</span>
+        <span class="sk-tag">Coaching</span>
+      </div>
+    </div>
+
+    <div>
+      <p class="resume-col-title">Experience</p>
+      <div class="resume-entry">
+        <div class="re-header"><span class="re-title">[Position Title]</span><span class="re-date">Month 20XX &ndash; Present</span></div>
+        <p class="re-org">[Organization / Department]</p>
+        <p class="re-desc">Describe your role and key accomplishments. Who did you help? What changed because of your work? Use numbers when possible.</p>
+      </div>
+      <div class="resume-entry">
+        <div class="re-header"><span class="re-title">[Position Title]</span><span class="re-date">Month 20XX &ndash; Month 20XX</span></div>
+        <p class="re-org">[Organization / Department]</p>
+        <p class="re-desc">Second experience. Highlight leadership, interdisciplinary collaboration, or research support that demonstrates your range.</p>
+      </div>
+      <div class="resume-entry">
+        <div class="re-header"><span class="re-title">[Position Title]</span><span class="re-date">Month 20XX &ndash; Month 20XX</span></div>
+        <p class="re-org">[Organization]</p>
+        <p class="re-desc">Third role &mdash; personal training, lab assistant, coaching, volunteer work, or any applied experience that shaped you.</p>
+      </div>
+      <div class="resume-entry">
+        <div class="re-header"><span class="re-title">Research Assistant</span><span class="re-date">20XX &ndash; 20XX</span></div>
+        <p class="re-org">[Lab / Advisor Name]</p>
+        <p class="re-desc">Supported IRB-approved research in [area]. Responsible for recruitment, data collection, and statistical analysis using [tools/methods].</p>
+      </div>
+    </div>
+  </div>
+  <div class="resume-cta fade-up">
+    <div>
+      <h3>Download Full R&eacute;sum&eacute;</h3>
+      <p>Complete version with references and contact information</p>
+    </div>
+    <a href="#" class="btn-gold">&#8595;&nbsp; PDF Download</a>
+  </div>
+</section>
+
+<!-- CAPSTONE -->
+<section id="capstone">
+  <div class="fade-up">
+    <p class="sec-label">04 &mdash; Research</p>
+    <h2 class="sec-title">Evidence-Based<br><em>Capstone Work</em></h2>
+  </div>
+  <div class="capstone-wrap fade-up">
+    <div class="cap-top">
+      <h3>[Your Capstone Title &mdash; Make It Specific and Compelling]</h3>
+      <p>Capstone Research Project &nbsp;&middot;&nbsp; [Semester, Year] &nbsp;&middot;&nbsp; Advisor: [Dr. Name, Credentials]</p>
+    </div>
+    <div class="cap-body">
+      <div class="cap-meta">
+        <div class="cap-meta-item"><span class="cap-meta-lbl">Field</span><span class="cap-meta-val">Exercise Science &amp; Psychology</span></div>
+        <div class="cap-meta-item"><span class="cap-meta-lbl">Participants</span><span class="cap-meta-val">n = [XX] participants</span></div>
+        <div class="cap-meta-item"><span class="cap-meta-lbl">Duration</span><span class="cap-meta-val">[X]-week study</span></div>
+        <div class="cap-meta-item"><span class="cap-meta-lbl">IRB Status</span><span class="cap-meta-val">Approved (#[Number])</span></div>
+      </div>
+      <p>
+        Replace this with a clear background and rationale for your research. What problem were you addressing? Why does it matter? How does your combined background in exercise science and psychology inform the question? Write for a smart reader who is not in your field.
+      </p>
+      <p>
+        Describe your methodology: research design, participant criteria, intervention or conditions, outcome measures, and analysis approach. Be specific enough to show rigor, clear enough to be understood broadly.
+      </p>
+      <p>
+        Summarize your key findings and their practical implications. What did the results mean for athletes, clinicians, coaches, or the populations you studied? What questions did this raise that you intend to pursue?
+      </p>
+      <div class="doc-row">
+        <a href="#" class="doc-btn">&#128196; Research Paper</a>
+        <a href="#" class="doc-btn">&#128202; Research Poster</a>
+        <a href="#" class="doc-btn">&#128203; IRB Approval</a>
+        <a href="#" class="doc-btn">&#128209; Grant Application</a>
+        <a href="#" class="doc-btn">&#127902; Presentation Slides</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="fade-up">
+    <p class="sec-label">05 &mdash; Development</p>
+    <h2 class="sec-title">Skills &amp; Experiences<br><em>Gained in College</em></h2>
+  </div>
+  <div class="skills-grid">
+    <div class="sk-card fade-up">
+      <span class="sk-card-num">01</span>
+      <div class="sk-card-icon">&#127947;</div>
+      <h3>Exercise Testing &amp; Prescription</h3>
+      <p>Administered maximal and submaximal fitness assessments including VO&sub2;max, 1RM, and body composition testing. Designed individualized programming for diverse populations and goals.</p>
+    </div>
+    <div class="sk-card fade-up">
+      <span class="sk-card-num">02</span>
+      <div class="sk-card-icon">&#129504;</div>
+      <h3>Psychological Assessment &amp; Applied Skills</h3>
+      <p>Applied psychometric tools, motivational interviewing, and behavior change frameworks to bridge mental performance with physical training for a whole-person approach.</p>
+    </div>
+    <div class="sk-card fade-up">
+      <span class="sk-card-num">03</span>
+      <div class="sk-card-icon">&#128202;</div>
+      <h3>Data Collection &amp; Interpretation</h3>
+      <p>Collected and analyzed physiological and behavioral data using SPSS, R, and Excel. Skilled in descriptive and inferential statistics for both research and practical application.</p>
+    </div>
+    <div class="sk-card fade-up">
+      <span class="sk-card-num">04</span>
+      <div class="sk-card-icon">&#127919;</div>
+      <h3>Coaching &amp; Training</h3>
+      <p>Delivered evidence-based sessions for athletes and general populations. Skilled in cueing, session structure, progressive overload, and individualized program adaptation.</p>
+    </div>
+    <div class="sk-card fade-up">
+      <span class="sk-card-num">05</span>
+      <div class="sk-card-icon">&#129309;</div>
+      <h3>Leadership &amp; Communication</h3>
+      <p>Led teams in lab and applied settings. Presented research to academic and professional audiences. Collaborated across medicine, coaching, psychology, and administration.</p>
+    </div>
+    <div class="sk-card fade-up">
+      <span class="sk-card-num">06</span>
+      <div class="sk-card-icon">&#128300;</div>
+      <h3>Research &amp; Critical Inquiry</h3>
+      <p>Navigated the full research cycle from IRB submission to manuscript preparation. Committed to evidence-based practice and the ongoing discipline of asking better questions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COURSEWORK -->
+<section id="coursework">
+  <div class="fade-up">
+    <p class="sec-label">06 &mdash; Exemplary Work</p>
+    <h2 class="sec-title">Selected<br><em>Coursework</em></h2>
+  </div>
+  <div class="cw-list fade-up">
+    <div class="cw-item">
+      <div class="cw-num-col"><div class="cw-num">01</div></div>
+      <div class="cw-content">
+        <p class="cw-type">[Assignment Type] &nbsp;&middot;&nbsp; [Course Name &amp; Number]</p>
+        <h3>[Title of Assignment or Project]</h3>
+        <p>Describe what this assignment required and what you produced. Explain what you learned &mdash; conceptually and practically. Why does it represent your capabilities? What would a professor or employer understand about you from this piece? Grade: [A/A&minus;/etc.]</p>
+      </div>
+    </div>
+    <div class="cw-item">
+      <div class="cw-num-col"><div class="cw-num">02</div></div>
+      <div class="cw-content">
+        <p class="cw-type">[Assignment Type] &nbsp;&middot;&nbsp; [Course Name &amp; Number]</p>
+        <h3>[Title of Assignment or Project]</h3>
+        <p>This is a strong place to highlight work that bridges your dual field &mdash; a project requiring both physiological and psychological insight. What was the challenge? What was your approach? What did this demonstrate about you as a dual-field professional? Grade: [A/A&minus;/etc.]</p>
+      </div>
+    </div>
+    <div class="cw-item">
+      <div class="cw-num-col"><div class="cw-num">03</div></div>
+      <div class="cw-content">
+        <p class="cw-type">[Assignment Type] &nbsp;&middot;&nbsp; [Course Name &amp; Number]</p>
+        <h3>[Title of Assignment or Project]</h3>
+        <p>Use this for your strongest practical project &mdash; a case study, program design, or research report that shows your ability to apply theory to real situations. Explain the context, your process, and what you would refine now with more experience. Grade: [A/A&minus;/etc.]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINKS -->
+<section id="links">
+  <div class="fade-up">
+    <p class="sec-label">07 &mdash; Connect</p>
+    <h2 class="sec-title">Professional<br><em>Links</em></h2>
+  </div>
+  <div class="links-grid fade-up">
+    <a href="https://linkedin.com" target="_blank" class="link-card">
+      <div class="link-icon">&#128188;</div>
+      <h3>LinkedIn</h3>
+      <p>linkedin.com/in/yourhandle</p>
+    </a>
+    <a href="https://researchgate.net" target="_blank" class="link-card">
+      <div class="link-icon">&#128300;</div>
+      <h3>ResearchGate</h3>
+      <p>Research profile &amp; publications</p>
+    </a>
+    <a href="https://nsca.com" target="_blank" class="link-card">
+      <div class="link-icon">&#127941;</div>
+      <h3>NSCA Member</h3>
+      <p>National Strength &amp; Conditioning Assoc.</p>
+    </a>
+    <a href="https://acsm.org" target="_blank" class="link-card">
+      <div class="link-icon">&#129658;</div>
+      <h3>ACSM Member</h3>
+      <p>American College of Sports Medicine</p>
+    </a>
+  </div>
+</section>
+
+<!-- ADDITIONAL -->
+<section id="additional">
+  <div class="fade-up">
+    <p class="sec-label">08 &mdash; Beyond the Degree</p>
+    <h2 class="sec-title">Additional<br><em>Highlights</em></h2>
+  </div>
+  <div class="add-grid fade-up">
+    <div class="add-col">
+      <h3>Certifications</h3>
+      <div class="cert-row"><div class="cert-marker"></div>CSCS &mdash; NSCA (20XX)</div>
+      <div class="cert-row"><div class="cert-marker"></div>CPR / AED &mdash; American Red Cross (20XX)</div>
+      <div class="cert-row"><div class="cert-marker"></div>[Certification Name] &mdash; [Issuing Body] (20XX)</div>
+      <div class="cert-row"><div class="cert-marker"></div>[Certification or Training] &mdash; In Progress</div>
+      <div class="cert-row"><div class="cert-marker"></div>First Aid Certified</div>
+
+      <h3 style="margin-top:40px;">Volunteer Work</h3>
+      <div class="cert-row"><div class="cert-marker"></div>[Organization] &mdash; [Role] (20XX&ndash;20XX)</div>
+      <div class="cert-row"><div class="cert-marker"></div>[Organization] &mdash; [Role] (20XX&ndash;20XX)</div>
+      <div class="cert-row"><div class="cert-marker"></div>[Organization] &mdash; [Role] (20XX&ndash;20XX)</div>
+    </div>
+    <div class="add-col">
+      <h3>Awards &amp; Recognition</h3>
+      <div class="award-row">
+        <span class="award-yr">20XX</span>
+        <div><strong>[Award Name]</strong><span>[Issuing Department or Organization]</span></div>
+      </div>
+      <div class="award-row">
+        <span class="award-yr">20XX</span>
+        <div><strong>[Scholarship Name]</strong><span>[Amount or Description]</span></div>
+      </div>
+      <div class="award-row">
+        <span class="award-yr">20XX</span>
+        <div><strong>Dean&rsquo;s List</strong><span>[X] consecutive semesters</span></div>
+      </div>
+      <h3 style="margin-top:40px;">Athletic &amp; Personal Achievements</h3>
+      <div class="cert-row"><div class="cert-marker"></div>[Sport / Activity] &mdash; [Achievement] (20XX)</div>
+      <div class="cert-row"><div class="cert-marker"></div>[Sport / Activity] &mdash; [Achievement] (20XX)</div>
+      <div class="cert-row"><div class="cert-marker"></div>[Personal Milestone or Achievement]</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="foot-name">[Your Name]</div>
+    <div class="foot-sub">Exercise Science &amp; Psychology &nbsp;&middot;&nbsp; Class of 20XX</div>
+  </div>
+  <div class="foot-emblem">&#9876;</div>
+  <div class="foot-links">
+    <a href="#profile">Profile</a>
+    <a href="#mission">Mission</a>
+    <a href="#resume">R&eacute;sum&eacute;</a>
+    <a href="#capstone">Capstone</a>
+    <a href="#links">Connect</a>
+  </div>
+</footer>
